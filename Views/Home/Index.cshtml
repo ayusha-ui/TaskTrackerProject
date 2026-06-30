@@ -1,0 +1,175 @@
+﻿@model TaskTrackerProject.Models.SignUp
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
+                    <h2 class="mb-1 fw-bold">
+                        <i class="bi bi-person-plus-fill"></i> Create Account
+                    </h2>
+                    <p class="mb-0">Fill in your details to register</p>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Full Name
+                        </label>
+                        <input type="text"
+                               id="txtName"
+                               class="form-control form-control-lg"
+                               placeholder="Enter your full name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Address
+                        </label>
+                        <textarea id="txtAddress"
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Enter your address"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Email Address
+                        </label>
+                        <input type="email"
+                               id="txtEmail"
+                               class="form-control form-control-lg"
+                               placeholder="Enter your email address">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Phone Number
+                        </label>
+                        <input type="text"
+                               id="txtPhone"
+                               class="form-control form-control-lg"
+                               placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">
+                            Date of Birth
+                        </label>
+                        <input type="date"
+                               id="txtDOB"
+                               class="form-control form-control-lg">
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg rounded-3"
+                                onclick="saveData()">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Register
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+<script>
+
+function validate(){
+
+    if($("#txtName").val()==""){
+        alert("Name is required");
+        return false;
+    }
+
+    if($("#txtAddress").val()==""){
+        alert("Address is required");
+        return false;
+    }
+
+    if($("#txtEmail").val()==""){
+        alert("Email is required");
+        return false;
+    }
+
+    if($("#txtPhone").val()==""){
+        alert("Phone is required");
+        return false;
+    }
+
+    if($("#txtDOB").val()==""){
+        alert("DOB is required");
+        return false;
+    }
+
+    return true;
+}
+
+function saveData(){
+
+    if(!validate())
+        return;
+
+    var model = {
+
+        Name: $("#txtName").val(),
+        Address: $("#txtAddress").val(),
+        Email: $("#txtEmail").val(),
+        Phone: $("#txtPhone").val(),
+        DOB: $("#txtDOB").val()
+
+    };
+
+    fetch('api/signup/save',{
+
+        method:'POST',
+
+        headers:{
+            'Content-Type':'application/json'
+        },
+
+        body:JSON.stringify(model)
+
+    })
+    .then(response=>response.json())
+    .then(data=>{
+
+        if(data.success){
+
+            alert("Registration Successful");
+
+            clearForm();
+
+        }
+        else{
+
+            alert(data.message);
+
+        }
+
+    });
+
+}
+
+function clearForm(){
+
+    $("#txtName").val("");
+    $("#txtAddress").val("");
+    $("#txtEmail").val("");
+    $("#txtPhone").val("");
+    $("#txtDOB").val("");
+
+}
+
+</script>
+
+}
