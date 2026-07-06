@@ -11,10 +11,10 @@ namespace TaskTrackerProject.Models
         [Key]
         public Guid Id { get; set; }
 
-        public required string Name { get; set; }
-        public required string Email { get; set; }
-        public required string Address { get; set; }
-        public required string Phone { get; set; }
-        public required string DOB { get; set; }
+        public  string Name { get; set; }
+        public  string Email { get; set; }
+        public  string Address { get; set; }
+        public  string Phone { get; set; }
+        public DateTime DOB { get; set; }
     }
 }

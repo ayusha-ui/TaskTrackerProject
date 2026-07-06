@@ -141,13 +141,13 @@ C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\TaskTrackerProject.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\TaskTrackerProject.RazorAssemblyInfo.cache
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\TaskTrackerProject.RazorAssemblyInfo.cs
+C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\TaskTrackerProject.sourcelink.json
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\scopedcss\bundle\TaskTrackerProject.styles.css
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\scopedcss\projectbundle\TaskTrackerProject.bundle.scp.css
-C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\compressed\3gpubbuyze-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\compressed\usxwgh022r-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\compressed\9dkrozue7t-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\compressed\i4wfh7h265-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -222,3 +222,4 @@ C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\TaskTrackerProject.pdb
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\TaskTrackerProject.genruntimeconfig.cache
 C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\ref\TaskTrackerProject.dll
+C:\Users\ayush\OneDrive\Desktop\task tracker\TaskTrackerProject\obj\Debug\net10.0\compressed\3gpubbuyze-{0}-hmpahu10sd-hmpahu10sd.gz

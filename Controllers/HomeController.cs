@@ -8,8 +8,7 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        var model = new SignUp();
-        return View(model);
+        return View();
     }
 
     public IActionResult Privacy()
