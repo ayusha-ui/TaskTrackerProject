@@ -4,31 +4,38 @@
 
 <style>
     body {
-        background-color: #f4f6f9;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        min-height: 100vh;
     }
 
     .page-title {
-        font-weight: 600;
-        color: #2c3345;
-        margin-bottom: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1.75rem;
+        letter-spacing: 0.3px;
+    }
+
+    .page-title i {
+        opacity: 0.9;
     }
 
     .app-card {
         border: none;
-        border-radius: 14px;
+        border-radius: 18px;
         overflow: hidden;
-        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
     }
 
     .app-card .card-header {
         border: none;
-        padding: 1.1rem 1.5rem;
+        padding: 1.35rem 1.75rem;
         font-weight: 600;
         letter-spacing: 0.3px;
+        font-size: 1.05rem;
     }
 
     .card-header-gradient {
-        background: linear-gradient(135deg, #4e73df, #364fc7);
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
         color: #fff;
     }
 
@@ -38,51 +45,108 @@
     }
 
     .card-body {
-        padding: 1.75rem;
+        padding: 2rem 1.75rem;
+        background: #fff;
     }
 
     .form-label {
-        font-weight: 500;
-        color: #444;
-        margin-bottom: 0.35rem;
+        font-weight: 600;
+        color: #3a3f4b;
+        margin-bottom: 0.4rem;
+        font-size: 0.83rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
     }
 
-    .form-control {
-        border-radius: 8px;
-        border: 1px solid #dcdfe6;
-        padding: 0.55rem 0.8rem;
+    .form-control,
+    textarea.form-control {
+        border-radius: 10px;
+        border: 1.5px solid #e3e6f0;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.94rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .form-control:focus {
-        border-color: #4e73df;
-        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.15);
+        border-color: #6a11cb;
+        box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.15);
+    }
+
+    /* ── Professional Button Styling ── */
+    .form-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eef0f4;
+        flex-wrap: wrap;
     }
 
     .btn {
-        border-radius: 8px;
-        font-weight: 500;
-        padding: 0.5rem 1.4rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.92rem;
+        padding: 0.6rem 1.6rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+
+    .btn:active {
+        transform: translateY(1px);
     }
 
     .btn-success {
-        background-color: #2e9e4f;
-        border-color: #2e9e4f;
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+        color: #063d1f;
+        box-shadow: 0 8px 18px rgba(17, 153, 142, 0.3);
     }
 
     .btn-success:hover {
-        background-color: #26833f;
-        border-color: #26833f;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(17, 153, 142, 0.4);
+        color: #063d1f;
     }
 
     .btn-secondary {
-        background-color: #e9ecef;
-        border-color: #e9ecef;
-        color: #333;
+        background-color: #eef0f4;
+        color: #4a5568;
     }
 
     .btn-secondary:hover {
-        background-color: #dde1e5;
+        background-color: #e2e5ec;
         color: #333;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        box-shadow: 0 8px 18px rgba(106, 17, 203, 0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(106, 17, 203, 0.4);
+        opacity: 0.97;
+        color: #fff;
+    }
+
+    .login-hint {
+        margin-top: 1.25rem;
+        font-size: 0.9rem;
+        color: #6b7280;
+    }
+
+    .login-hint a {
+        color: #6a11cb;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .login-hint a:hover {
+        text-decoration: underline;
     }
 
     .table thead th {
@@ -143,6 +207,10 @@
                     <label class="form-label">Email</label>
                     <input type="email" id="txtEmail" class="form-control" placeholder="Enter email address" />
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="txtPassword" class="form-control" placeholder="Enter password" />
+                </div>
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Phone</label>
@@ -161,54 +229,31 @@
 
             </div>
 
-            <div class="d-flex gap-2 mt-2">
+            <div class="form-actions">
 
                 <button id="btnSave" class="btn btn-success" onclick="saveData()">
-                    <i class="bi bi-check-circle me-1"></i>Sign Up
+                    <i class="bi bi-check-circle"></i>Sign Up
                 </button>
 
                 <button class="btn btn-secondary" onclick="clearForm()">
-                    <i class="bi bi-x-circle me-1"></i>Clear
+                    <i class="bi bi-x-circle"></i>Clear
                 </button>
 
+                <a href="/Home/Login" class="btn btn-primary">
+                    <i class="bi bi-box-arrow-in-right"></i>Login
+                </a>
+
+            </div>
+
+            <div class="login-hint">
+                Already have an account? <a href="/Home/Login">Login here</a>
             </div>
 
         </div>
 
     </div>
 
-    <!-- User List -->
-    <div class="card app-card mt-4">
-
-        <div class="card-header card-header-dark">
-            <i class="bi bi-people-fill me-2"></i>Registered Users
-        </div>
-
-        <div class="card-body table-responsive p-0">
-
-            <table class="table table-bordered table-striped table-hover mb-0" id="tblData">
-
-                <thead>
-
-                    <tr>
-                        <th>SN</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>DOB</th>
-                        <th width="170">Action</th>
-                    </tr>
-
-                </thead>
-
-                <tbody></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
+    <!-- User list removed: displaying all registered users publicly is a privacy violation -->
 
 </div>
 
@@ -217,9 +262,7 @@
     <script>
 
         $(document).ready(function () {
-
-            getData();
-
+            // registration page — nothing to load on startup
         });
 
         function validate() {
@@ -243,6 +286,10 @@
                 alert("Phone is required");
                 return false;
             }
+            if ($("#txtPassword").val() == "") {
+                alert("Password is required");
+                return false;
+            }
 
             if ($("#txtDOB").val() == "") {
                 alert("DOB is required");
@@ -259,10 +306,10 @@
 
             var model = {
 
-                Id: $("#txtId").val(),
                 Name: $("#txtName").val(),
                 Address: $("#txtAddress").val(),
                 Email: $("#txtEmail").val(),
+                Password: $("#txtPassword").val(),
                 Phone: $("#txtPhone").val(),
                 DOB: $("#txtDOB").val()
 
@@ -286,13 +333,11 @@
                     .then(response => response.json())
                     .then(data => {
 
-                        if (data.success) {
+                        if (data.status) {
 
                             alert("Registration Successful");
 
                             clearForm();
-
-                            getData();
 
                         }
                         else {
@@ -425,7 +470,7 @@
 
                             }
 
-                            $("#btnSave").html('<i class="bi bi-check-circle me-1"></i>Update');
+                            $("#btnSave").html('<i class="bi bi-check-circle"></i>Update');
 
                         }
 
@@ -474,7 +519,7 @@
             $("#txtPhone").val("");
             $("#txtDOB").val("");
 
-            $("#btnSave").html('<i class="bi bi-check-circle me-1"></i>Sign Up');
+            $("#btnSave").html('<i class="bi bi-check-circle"></i>Sign Up');
 
         }
 

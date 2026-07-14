@@ -1,0 +1,904 @@
+<style>
+    body {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        min-height: 100vh;
+    }
+
+    .page-header {
+        color: #fff;
+        margin-bottom: 1.75rem;
+    }
+
+    .page-header h2 {
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        margin-bottom: 0.15rem;
+    }
+
+    .page-header p {
+        opacity: 0.85;
+        margin-bottom: 0;
+    }
+
+    /* ---------- PROFILE CARD ---------- */
+    .profile-card {
+        border: none;
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    .profile-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        box-shadow: 0 8px 18px rgba(106, 17, 203, 0.35);
+    }
+
+    .profile-name {
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: #24262d;
+        margin-bottom: 0.1rem;
+    }
+
+    .profile-subtitle {
+        font-size: 0.85rem;
+        color: #8a8f9c;
+    }
+
+    .profile-detail-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.4rem 0;
+    }
+
+    .profile-detail-item i {
+        color: #6a11cb;
+        font-size: 1rem;
+        margin-top: 0.15rem;
+        width: 18px;
+        text-align: center;
+    }
+
+    .profile-detail-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #a3a8b5;
+        margin-bottom: 0.1rem;
+    }
+
+    .profile-detail-value {
+        font-size: 0.9rem;
+        color: #2e3140;
+        font-weight: 500;
+        word-break: break-word;
+    }
+
+    .profile-toggle-btn {
+        border: 1px solid #e3e6f0;
+        background: #f8f9fd;
+        color: #6a11cb;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.4rem 0.9rem;
+        transition: all 0.15s ease;
+    }
+
+    .profile-toggle-btn:hover {
+        background: #6a11cb;
+        color: #fff;
+    }
+
+    /* ---------- STAT CARDS ---------- */
+    .stat-card {
+        border: none;
+        border-radius: 16px;
+        color: #fff;
+        padding: 1.25rem 1.5rem;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        height: 100%;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.24);
+    }
+
+    .stat-card .stat-icon {
+        font-size: 1.6rem;
+        opacity: 0.85;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.9rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .stat-card .stat-label {
+        font-size: 0.85rem;
+        opacity: 0.9;
+    }
+
+    .stat-total {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    .stat-pending {
+        background: linear-gradient(135deg, #f7971e, #ffd200);
+        color: #3a2a00;
+    }
+
+    .stat-progress {
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+    }
+
+    .stat-done {
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+    }
+
+    /* ---------- MAIN CARD ---------- */
+    .main-card {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+        background: #fff;
+    }
+
+    .main-card .card-header {
+        background: #ffffff;
+        border-bottom: 1px solid #eef0f5;
+        padding: 1.5rem 1.75rem 1rem;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        border: none;
+        color: #fff;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(37, 117, 252, 0.35);
+        color: #fff;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        border: 1px solid #dfe3ec;
+        padding: 0.7rem 0.9rem;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #6a11cb;
+        box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.15);
+    }
+
+    .table thead {
+        background: #f5f6fa;
+    }
+
+    .table thead th {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        color: #6b7280;
+        border-bottom-width: 1px;
+    }
+
+    .table tbody tr {
+        transition: background 0.12s ease;
+    }
+
+    .table tbody tr:hover {
+        background: #f8f9ff;
+    }
+
+    .badge-priority-high {
+        background: #ff4d4f;
+    }
+
+    .badge-priority-medium {
+        background: #ffa940;
+        color: #3a2a00;
+    }
+
+    .badge-priority-low {
+        background: #52c41a;
+    }
+
+    .badge-status-pending {
+        background: #ffd200;
+        color: #3a2a00;
+    }
+
+    .badge-status-progress {
+        background: #0072ff;
+    }
+
+    .badge-status-completed {
+        background: #38ef7d;
+        color: #063d1f;
+    }
+
+    .badge {
+        padding: 0.4em 0.7em;
+        font-weight: 600;
+        font-size: 0.72rem;
+        border-radius: 8px;
+    }
+
+    .task-row-completed td {
+        text-decoration: line-through;
+        opacity: 0.6;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #a3a8b5;
+    }
+
+    .empty-state i {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+        display: block;
+        color: #d7dbe8;
+    }
+
+    .modal-content {
+        border-radius: 16px;
+        border: none;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: #fff;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .modal-header .btn-close {
+        filter: invert(1);
+    }
+</style>
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center page-header flex-wrap gap-2">
+        <div>
+            <h2><i class="bi bi-kanban-fill me-2"></i>Task Tracker Dashboard</h2>
+            <p>Manage, track, and complete your tasks in one place</p>
+        </div>
+        <div>
+            <button class="btn btn-light rounded-pill px-3" onclick="logout()">
+                <i class="bi bi-box-arrow-right me-1"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="profile-avatar" id="profileAvatar">?</div>
+                <div>
+                    <div class="profile-name" id="profileName">Loading...</div>
+                    <div class="profile-subtitle" id="profileEmailShort">&nbsp;</div>
+                </div>
+            </div>
+
+            <button class="profile-toggle-btn" onclick="toggleProfileDetails()">
+                <i class="bi bi-person-lines-fill me-1"></i>
+                <span id="profileToggleLabel">View Details</span>
+            </button>
+
+        </div>
+
+        <div class="row g-3 mt-1" id="profileDetails" style="display:none;">
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="profile-detail-item">
+                    <i class="bi bi-person"></i>
+                    <div>
+                        <div class="profile-detail-label">Name</div>
+                        <div class="profile-detail-value" id="profileDetailName">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="profile-detail-item">
+                    <i class="bi bi-envelope"></i>
+                    <div>
+                        <div class="profile-detail-label">Email</div>
+                        <div class="profile-detail-value" id="profileDetailEmail">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="profile-detail-item">
+                    <i class="bi bi-telephone"></i>
+                    <div>
+                        <div class="profile-detail-label">Phone</div>
+                        <div class="profile-detail-value" id="profileDetailPhone">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="profile-detail-item">
+                    <i class="bi bi-cake2"></i>
+                    <div>
+                        <div class="profile-detail-label">Date of Birth</div>
+                        <div class="profile-detail-value" id="profileDetailDob">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="profile-detail-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <div>
+                        <div class="profile-detail-label">Address</div>
+                        <div class="profile-detail-value" id="profileDetailAddress">-</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-total d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="stat-value" id="statTotal">0</div>
+                    <div class="stat-label">Total Tasks</div>
+                </div>
+                <i class="bi bi-list-task stat-icon"></i>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-pending d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="stat-value" id="statPending">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <i class="bi bi-hourglass-split stat-icon"></i>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-progress d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="stat-value" id="statProgress">0</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+                <i class="bi bi-arrow-repeat stat-icon"></i>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-done d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="stat-value" id="statDone">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <i class="bi bi-check-circle stat-icon"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main Card -->
+    <div class="card main-card">
+
+        <div class="card-header">
+
+            <div class="row g-2 align-items-center">
+
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                        <input type="text" id="txtSearch" class="form-control border-start-0"
+                               placeholder="Search tasks..." onkeyup="renderTasks()" />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <select id="ddlFilterStatus" class="form-select" onchange="renderTasks()">
+                        <option value="">All Status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <select id="ddlFilterPriority" class="form-select" onchange="renderTasks()">
+                        <option value="">All Priority</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 text-md-end">
+                    <button class="btn btn-gradient w-100" data-bs-toggle="modal" data-bs-target="#taskModal"
+                            onclick="openAddModal()">
+                        <i class="bi bi-plus-lg me-1"></i> Add Task
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-body table-responsive">
+
+            <table class="table table-bordered table-hover align-middle" id="tblTasks">
+
+                <thead>
+
+                    <tr>
+                        <th>SN</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th width="220">Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Add/Edit Task Modal -->
+<div class="modal fade" id="taskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"><i class="bi bi-plus-circle me-2"></i>Add Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="txtTaskId" />
+
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" id="txtTitle" class="form-control" placeholder="Task title" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea id="txtDescription" class="form-control" rows="3"
+                              placeholder="Task description"></textarea>
+                </div>
+
+                <div class="row g-2">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Priority</label>
+                        <select id="ddlPriority" class="form-select">
+                            <option value="0" selected>Low</option>
+                            <option value="1">Medium</option>
+                            <option value="2">High</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Status</label>
+                        <select id="ddlStatus" class="form-select">
+                            <option value="0" selected>Pending</option>
+                            <option value="1">In Progress</option>
+                            <option value="2">Completed</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" id="txtDueDate" class="form-control" />
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-gradient" id="btnSaveTask" onclick="saveTask()">Save Task</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <script>
+
+        var tasks = [];
+        var taskModal;
+
+        $(document).ready(function () {
+
+            taskModal = new bootstrap.Modal(document.getElementById('taskModal'));
+
+            loadProfile();
+            getTasks();
+
+        });
+
+        // ---------- LABEL HELPERS ----------
+
+        function getPriorityLabel(value) {
+            var map = { 0: "Low", 1: "Medium", 2: "High" };
+            return map[value] !== undefined ? map[value] : value;
+        }
+
+        function getStatusLabel(value) {
+            var map = { 0: "Pending", 1: "In Progress", 2: "Completed" };
+            return map[value] !== undefined ? map[value] : value;
+        }
+
+        // ---------- PROFILE ----------
+
+        function loadProfile() {
+
+            fetch('/api/account/profile', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.status) {
+
+                        var p = data.data;
+
+                        var initials = (p.name || "?").split(" ").map(function (n) { return n[0]; }).join("").substring(0, 2).toUpperCase();
+
+                        $("#profileAvatar").text(initials);
+                        $("#profileName").text(p.name || "-");
+                        $("#profileEmailShort").text(p.email || "");
+
+                        $("#profileDetailName").text(p.name || "-");
+                        $("#profileDetailEmail").text(p.email || "-");
+                        $("#profileDetailPhone").text(p.phone || "-");
+                        $("#profileDetailAddress").text(p.address || "-");
+
+                        if (p.dob != null) {
+                            $("#profileDetailDob").text(p.dob.substring(0, 10));
+                        } else {
+                            $("#profileDetailDob").text("-");
+                        }
+
+                    } else {
+                        $("#profileName").text("Not logged in");
+                    }
+
+                })
+                .catch(() => {
+                    $("#profileName").text("Unable to load profile");
+                });
+
+        }
+
+        function toggleProfileDetails() {
+
+            var el = $("#profileDetails");
+
+            if (el.is(":visible")) {
+                el.slideUp(150);
+                $("#profileToggleLabel").text("View Details");
+            } else {
+                el.slideDown(150);
+                $("#profileToggleLabel").text("Hide Details");
+            }
+
+        }
+
+        // ---------- CRUD OPERATIONS ----------
+
+        function getTasks() {
+
+            fetch('/api/task/get', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.status) {
+                        tasks = data.data;
+                        renderTasks();
+                    } else {
+                        alert(data.message);
+                    }
+
+                })
+                .catch(() => {
+                    alert("Unable to load tasks. Please check the API connection.");
+                });
+
+        }
+
+        function openAddModal() {
+
+            $("#txtTaskId").val("");
+            $("#txtTitle").val("");
+            $("#txtDescription").val("");
+            $("#ddlPriority").val("0");
+            $("#ddlStatus").val("0");
+            $("#txtDueDate").val("");
+
+            $("#modalTitle").html("<i class='bi bi-plus-circle me-2'></i>Add Task");
+            $("#btnSaveTask").text("Save Task");
+
+        }
+
+        function openEditModal(id) {
+
+            var item = tasks.find(x => x.id == id);
+
+            if (item == null) return;
+
+            $("#txtTaskId").val(item.id);
+            $("#txtTitle").val(item.title);
+            $("#txtDescription").val(item.description);
+            $("#ddlPriority").val(item.priority);
+            $("#ddlStatus").val(item.status);
+
+            if (item.dueDate != null) {
+                $("#txtDueDate").val(item.dueDate.substring(0, 10));
+            }
+
+            $("#modalTitle").html("<i class='bi bi-pencil-square me-2'></i>Edit Task");
+            $("#btnSaveTask").text("Update Task");
+
+            taskModal.show();
+
+        }
+
+        function saveTask() {
+
+            var title = $("#txtTitle").val();
+
+            if (title == "") {
+                alert("Title is required");
+                return;
+            }
+
+            var model = {
+                Title: title,
+                Description: $("#txtDescription").val(),
+                Priority: $("#ddlPriority").val(),
+                Status: $("#ddlStatus").val(),
+                DueDate: $("#txtDueDate").val()
+            };
+
+            var isUpdate = $("#txtTaskId").val() != "";
+
+            if (isUpdate) {
+                model.Id = $("#txtTaskId").val();
+            }
+
+            fetch(isUpdate ? '/api/task/update' : '/api/task/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(model)
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.status) {
+                        taskModal.hide();
+                        getTasks();
+                    } else {
+                        alert(data.message);
+                    }
+
+                })
+                .catch(() => {
+                    alert("Unable to save the task. Please try again.");
+                });
+
+        }
+
+        function updateStatus(id, newStatus) {
+
+            var model = { Id: id, Status: newStatus };
+
+            fetch('/api/task/updateStatus', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(model)
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.status) {
+                        getTasks();
+                    } else {
+                        alert(data.message);
+                    }
+
+                });
+
+        }
+
+        function deleteTask(id) {
+
+            if (!confirm("Are you sure you want to delete this task?")) return;
+
+            fetch('/api/task/delete?id=' + id, { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.status) {
+                        getTasks();
+                    } else {
+                        alert(data.message);
+                    }
+
+                });
+
+        }
+
+        // ---------- RENDERING ----------
+
+        function renderTasks() {
+
+            var search = $("#txtSearch").val().toLowerCase();
+            var filterStatus = $("#ddlFilterStatus").val();
+            var filterPriority = $("#ddlFilterPriority").val();
+
+            var filtered = tasks.filter(function (t) {
+
+                var priorityLabel = getPriorityLabel(t.priority);
+                var statusLabel = getStatusLabel(t.status);
+
+                var matchesSearch = t.title.toLowerCase().includes(search) ||
+                    (t.description != null && t.description.toLowerCase().includes(search));
+
+                var matchesStatus = filterStatus == "" || statusLabel == filterStatus;
+                var matchesPriority = filterPriority == "" || priorityLabel == filterPriority;
+
+                return matchesSearch && matchesStatus && matchesPriority;
+
+            });
+
+            $("#tblTasks tbody").empty();
+
+            if (filtered.length == 0) {
+
+                $("#tblTasks tbody").append(
+                    "<tr><td colspan='7'>" +
+                    "<div class='empty-state'>" +
+                    "<i class='bi bi-inbox'></i>" +
+                    "No tasks found" +
+                    "</div>" +
+                    "</td></tr>"
+                );
+
+                updateStats();
+                return;
+
+            }
+
+            $.each(filtered, function (index, item) {
+
+                var priorityLabel = getPriorityLabel(item.priority);
+                var statusLabel = getStatusLabel(item.status);
+
+                var dueDate = item.dueDate != null ? item.dueDate.substring(0, 10) : "-";
+
+                var priorityBadge = "badge-priority-" + priorityLabel.toLowerCase();
+                var rowClass = statusLabel == "Completed" ? "task-row-completed" : "";
+
+                var statusDropdown =
+                    "<select class='form-select form-select-sm' style='width:130px; display:inline-block;' onchange='updateStatus(\"" + item.id + "\", this.value)'>" +
+                    "<option value='0'" + (item.status == 0 ? " selected" : "") + ">Pending</option>" +
+                    "<option value='1'" + (item.status == 1 ? " selected" : "") + ">In Progress</option>" +
+                    "<option value='2'" + (item.status == 2 ? " selected" : "") + ">Completed</option>" +
+                    "</select>";
+
+                $("#tblTasks tbody").append(
+
+                    "<tr class='" + rowClass + "'>" +
+                    "<td>" + (index + 1) + "</td>" +
+                    "<td>" + item.title + "</td>" +
+                    "<td>" + (item.description || "") + "</td>" +
+                    "<td><span class='badge " + priorityBadge + "'>" + priorityLabel + "</span></td>" +
+                    "<td>" + statusDropdown + "</td>" +
+                    "<td>" + dueDate + "</td>" +
+                    "<td>" +
+                    "<button class='btn btn-warning btn-sm me-1' onclick='openEditModal(\"" + item.id + "\")'><i class='bi bi-pencil'></i></button>" +
+                    "<button class='btn btn-danger btn-sm' onclick='deleteTask(\"" + item.id + "\")'><i class='bi bi-trash'></i></button>" +
+                    "</td>" +
+                    "</tr>"
+
+                );
+
+            });
+
+            updateStats();
+
+        }
+
+        function updateStats() {
+
+            $("#statTotal").text(tasks.length);
+            $("#statPending").text(tasks.filter(t => t.status == 0).length);
+            $("#statProgress").text(tasks.filter(t => t.status == 1).length);
+            $("#statDone").text(tasks.filter(t => t.status == 2).length);
+
+        }
+
+        function logout() {
+
+            fetch('/api/account/logout', { method: 'POST' })
+                .finally(() => {
+                    window.location.href = "/";
+                });
+
+        }
+
+    </script>
+
+}

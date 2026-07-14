@@ -1,23 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TaskTrackerProject.Data;
-using TaskTrackerProject.Models;
 using Microsoft.EntityFrameworkCore;
+using TaskTrackerProject.Models;
+using TaskTrackerProject.TaskDbContext;
 
 namespace TaskTrackerProject.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/signup")]
     public class SignUpController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
+
         public SignUpController(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
+
         [HttpPost("save")]
         public async Task<IActionResult> Save([FromBody] SignUp model)
         {
@@ -30,32 +33,39 @@ namespace TaskTrackerProject.Controllers
             {
                 return Ok(new { Status = false, Message = ex.Message });
             }
-            return Ok(new { Status = true, Message = "Data saved successfully" });
+            return Ok(new { Status = true, Message = "Data Added Successfully" });
+
         }
 
 
         [HttpGet("get")]
-
         public async Task<IActionResult> get()
         {
             try
             {
-                var signupData = await _appDbContext.SignUps.ToListAsync();
-                return Ok(new { Status = true, Message = "Data fetched successfully", Data = signupData });
+                var signupData = await _appDbContext.SignUps.
+                ToListAsync();
+                return Ok(new
+                {
+                    Status = true,
+                    Message = "",
+                    Data = signupData
+                });
+
             }
             catch (Exception ex)
             {
                 return Ok(new { Status = false, Message = ex.Message });
             }
         }
-        [HttpGet("delete")]
-        public async Task<IActionResult> delete(Guid id)
 
+        [HttpGet("delete")]
+        public async Task<IActionResult> delete([FromQuery] Guid id)
         {
             try
             {
                 var deleteData = await _appDbContext.SignUps.
-             FirstOrDefaultAsync(x => x.Id == id);
+                    FirstOrDefaultAsync(x => x.Id == id);
                 if (deleteData != null)
                 {
                     _appDbContext.Remove(deleteData);
@@ -75,9 +85,6 @@ namespace TaskTrackerProject.Controllers
                         Message = "Data Not Exist"
                     });
                 }
-
-
-
             }
             catch (Exception ex)
             {
@@ -88,6 +95,7 @@ namespace TaskTrackerProject.Controllers
                 });
             }
         }
+
         [HttpPost("update")]
         public async Task<IActionResult> update([FromBody] SignUp model)
         {
@@ -117,6 +125,44 @@ namespace TaskTrackerProject.Controllers
             catch (Exception ex)
             {
                 return Ok(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> login([FromBody] SignUp model)
+        {
+            try
+            {
+                var user = await _appDbContext.SignUps
+                    .FirstOrDefaultAsync(x => x.Email == model.Email && x.Password == model.Password);
+
+                if (user != null)
+                {
+                    // Store the logged-in user's email in session so we know who they are on later requests
+                    HttpContext.Session.SetString("UserEmail", user.Email);
+
+                    return Ok(new
+                    {
+                        Status = true,
+                        Message = "Login Successfull"
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false,
+                        Message = "User Not Exist"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Ok(new
+                {
+                    Status = false,
+                    Message = ex.Message
+                });
             }
         }
     }
