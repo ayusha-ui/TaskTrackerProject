@@ -1,47 +1,122 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using TaskTrackerProject.CustomMiddleware;
 using TaskTrackerProject.TaskDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ================================
+// MVC Services
+// ================================
 builder.Services.AddControllersWithViews();
 
+// ================================
+// Database
+// ================================
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDistributedMemoryCache(); // required for session storage
+// ================================
+// Session
+// ================================
+builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromHours(2); // how long a login stays valid
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
-builder.WebHost.ConfigureKestrel(options =>
+// ================================
+// JWT Authentication
+// ================================
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Secret"]!);
+
+builder.Services.AddAuthentication(options =>
 {
-    options.ListenLocalhost(5173); // HTTP only
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+builder.Services.AddAuthorization();
+
+// ================================
+// CORS
+// ================================
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:4200",
+                "https://localhost:4200",
+                "https://yourdomain.com")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ================================
+// Production
+// ================================
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+// ================================
+// Middleware Pipeline
+// ================================
 app.UseHttpsRedirection();
+
 app.UseRouting();
 
-app.UseSession(); // <-- enables session, must be after UseRouting and before UseAuthorization
+app.UseCors("AllowAll");
 
+// Generic Exception Middleware
+app.UseGlobalExceptionHandling();
+
+// Performance Logging Middleware
+app.UseMiddleware<PerformanceLoggingMiddleware>();
+
+// Session
+app.UseSession();
+
+// Authentication
+app.UseAuthentication();
+
+// Authorization
 app.UseAuthorization();
 
+// Static Files
 app.MapStaticAssets();
 
+// MVC Routing
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
