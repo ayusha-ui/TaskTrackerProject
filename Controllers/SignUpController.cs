@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskTrackerProject.Models;
+using TaskTrackerProject.Service;
 using TaskTrackerProject.TaskDbContext;
 
 namespace TaskTrackerProject.Controllers
@@ -15,10 +16,12 @@ namespace TaskTrackerProject.Controllers
     public class SignUpController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IEmailService _emailService;
 
-        public SignUpController(AppDbContext appDbContext)
+        public SignUpController(AppDbContext appDbContext, IEmailService emailService)
         {
             _appDbContext = appDbContext;
+            _emailService = emailService;
         }
 
         [HttpPost("save")]
@@ -27,12 +30,14 @@ namespace TaskTrackerProject.Controllers
             try
             {
                 _appDbContext.Add(model);
+                await _emailService.EmailSend(model.Email); // Send email after saving the data   
                 await _appDbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 return Ok(new { Status = false, Message = ex.Message });
             }
+
             return Ok(new { Status = true, Message = "Data Added Successfully" });
 
         }

@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using TaskTrackerProject.CustomMiddleware;
+using TaskTrackerProject.Service;
 using TaskTrackerProject.TaskDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // ================================
 // MVC Services

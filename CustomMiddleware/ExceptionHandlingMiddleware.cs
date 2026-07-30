@@ -23,16 +23,15 @@ namespace TaskTrackerProject.CustomMiddleware
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,
-                    "Unhandled exception occurred while processing {Method} {Path}",
-                    context.Request.Method,
-                    context.Request.Path);
+                _logger.LogError(ex, ex.Message);
 
                 await HandleExceptionAsync(context, ex);
             }
         }
 
-        private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private static async Task HandleExceptionAsync(
+            HttpContext context,
+            Exception exception)
         {
             context.Response.ContentType = "application/json";
 
