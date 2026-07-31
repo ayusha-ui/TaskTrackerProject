@@ -34,7 +34,7 @@ namespace TaskTrackerProject.Service
 
                 await client.AuthenticateAsync(
                     "ayushakarki689@gmail.com",
-                    "euvc sqwc ugsd tehw");
+                    "your_app_password_here"); // Replace with your app password
 
                 await client.SendAsync(message);
 
